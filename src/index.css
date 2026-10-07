@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary-button: #6236f5;
+}
+
+/* body {
+  background-color: grey;
+} */
+
+button {
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
