@@ -3,6 +3,8 @@ import logoImg from "@/assets/logo.svg";
 import { useState } from "react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { AnimatePresence, motion } from "motion/react";
+import { Link } from "react-router-dom";
+import { Paths } from "@/routes/paths";
 
 type Props = {};
 
@@ -10,35 +12,37 @@ export const Navbar = (props: Props) => {
   const flexBetween = "flex items-center justify-between";
   const classDropdown =
     "rounded-lg px-4 py-2 transition-colors text-base font-medium";
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const toggleMenu = () => setIsMobile(!isMobile);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const isAboveMediumScreen = useMediaQuery("(min-width: 1024px)");
   // top page?
 
   return (
     <nav>
-      <div className={`${flexBetween} bg-white py-5 fixed top-0 z-20 w-full`}>
+      <div className={`${flexBetween} bg-white py-5 top-0 fixed z-20 w-full`}>
         <div className={`${flexBetween} mx-auto w-7/8`}>
           <div className={`${flexBetween} w-full gap-10`}>
-            <a href="#">
+            <Link to={Paths.HOME}>
               <img src={logoImg} alt="logo" className="size-10 lg:size-12" />
-            </a>
+            </Link>
 
             <div className="relative">
               {isAboveMediumScreen ? (
                 <div className={`${flexBetween} gap-15`}>
-                  <a href="#">Home</a>
-                  <a href="#">Teams</a>
-                  <button className="bg-primary-button text-xs py-2 px-6 rounded-md hover:scale-110 transition duration-200 ease-in-out">
+                  <Link to={Paths.HOME}>Home</Link>
+                  <Link to={Paths.TEAMS}>Teams</Link>
+                  <Link
+                    to={Paths.LOGIN}
+                    className="button-link bg-primary-button text-xs py-2 px-6 rounded-md hover:scale-110 transition duration-200 ease-in-out">
                     Login
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <button
                   className="bg-black p-2 rounded-md"
                   onClick={toggleMenu}>
                   <AnimatePresence mode="wait" initial={false}>
-                    {isMobile ? (
+                    {isMenuOpen ? (
                       <motion.div
                         key="close"
                         initial={{ rotate: -90, opacity: 0 }}
@@ -62,7 +66,7 @@ export const Navbar = (props: Props) => {
               )}
 
               <AnimatePresence>
-                {!isAboveMediumScreen && isMobile && (
+                {!isAboveMediumScreen && isMenuOpen && (
                   <>
                     <motion.div
                       key="dropdown"
@@ -72,22 +76,24 @@ export const Navbar = (props: Props) => {
                       transition={{ duration: 0.2, ease: "easeOut" }}
                       className="absolute right-0 top-12 w-48 rounded-lg bg-black p-3 shadow-2xl">
                       <div className="flex flex-col gap-1 text-white">
-                        <a
-                          href="#"
+                        <Link
+                          to={Paths.HOME}
                           onClick={toggleMenu}
                           className={`${classDropdown} hover:bg-zinc-700`}>
                           Home
-                        </a>
-                        <a
-                          href="#"
+                        </Link>
+                        <Link
+                          to={Paths.TEAMS}
                           onClick={toggleMenu}
                           className={`${classDropdown} hover:bg-zinc-700`}>
                           Teams
-                        </a>
-                        <button
-                          className={`${classDropdown} bg-primary-button text-xs py-2 px-6 rounded-md hover:bg-primary-button/70`}>
+                        </Link>
+                        <Link
+                          to={Paths.LOGIN}
+                          onClick={toggleMenu}
+                          className={`${classDropdown} button-link bg-primary-button hover:bg-primary-button/70`}>
                           login
-                        </button>
+                        </Link>
                       </div>
                     </motion.div>
                   </>

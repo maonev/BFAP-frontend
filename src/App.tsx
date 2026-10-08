@@ -1,11 +1,15 @@
-import { Home } from "./layouts/home";
+import { RoutesPath } from "@/routes";
+import { Navbar } from "@/components/navbar";
 
 function App() {
   return (
     <div>
-      <Home />
+      <Navbar />
+      <main className="min-h-screen pt-22">
+        <RoutesPath />
+      </main>
     </div>
-  )
+  );
 }
 
 export default App;

@@ -1,9 +1,9 @@
-import React from 'react'
-
-type Props = {}
+type Props = {};
 
 export const Teams = (props: Props) => {
   return (
-    <div>Teams</div>
-  )
-}
+    <div>
+      
+    </div>
+  );
+};
